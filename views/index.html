@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Roman Calculator Sample</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  <body>
+  <div class="container">
+    <div class="jumbotron">
+      <h1 >Roman Calculator</h1>
+      <form class="">
+        <div class="form-group">
+          <label for="">Roman Number 1</label>
+          <input type="text" class="form-control" name="" value="" id="input1">
+        </div>
+        <div class="form-group">
+          <label for="">Roman Number 2</label>
+          <input type="text" class="form-control" name="" value="" id="input2">
+        </div>
+        <div class="form-group">
+          <label for="">Method</label>
+          <select class="form-group" id="myMethod">
+              <option value="+">Sum</option>
+              <option value="-">Subtract</option>
+              <option value="*">Mutliplication</option>
+              <option value="/">Divide</option>
+            </select>
+        </div>
+        <li class="divider"></li>
+        <button type="button" name="button" onclick="fetchOutput();">Check Results</button>
+      </form>
+
+      <div class="" id="out" style="display:none;">
+        <label for="">Output</label>
+        <span id="result"></span>
+      </div>
+    </div>
+  </div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+  function fetchOutput(){
+    var val1, val2, method;
+    val1 = $('#input1').val();
+    val2 = $('#input2').val()
+    method = $('#myMethod').val();
+    $.post( "http://localhost:3000/calculate", { val1: val1, val2: val2, method: method }, function( data ) {
+      if(data.code == 200){
+        document.getElementById('out').style.display = 'block';
+        document.getElementById('result').innerHTML = data.data;
+      }
+    }, "json");
+  }
+  </script>
+</html>
